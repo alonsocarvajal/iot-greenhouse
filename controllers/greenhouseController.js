@@ -54,16 +54,14 @@ exports.index = function(req, res) {
             }
         ]
     }// end charOptions
-        
-        //const categories = ['cat 1', ... , 'cat n'];
-        
-        //chartOptions.xAxis[0].data = categories;
 
     Record.find({})
     .exec( (err, records) => {
         if (err) { return next(err); }
-        const dates = records.map( record => record.dat );
-        const temperatures = records.map( record => record.temperature );
+        const dates = records.map(record => record.date);
+        const temperatures = records.map(record => record.temperature).sort( (a,b) => b - a );
+        console.log(temperatures);
+        const humidities = records.map(record => record.humidity)
         let lastTemperature = temperatures[temperatures.length - 1];
         chartOptions.xAxis[0].data = dates;
         chartOptions.series[0].data = temperatures;
