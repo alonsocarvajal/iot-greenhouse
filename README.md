@@ -1,2 +1,2 @@
 # iot-greenhouse
-![alt text](https://ibb.co/hppvAR)
+![alt text](https://raw.githubusercontent.com/alonsocarvajal/iot-greenhouse/master/Untitled%20Diagram.png)
