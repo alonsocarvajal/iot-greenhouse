@@ -1,2 +1,2 @@
 # iot-greenhouse
-![alt text](iot-greenhouse/Untitled Diagram.png)
+![alt text](https://raw.githubusercontent.com/alonsocarvajal/iot-greenhouse/master/Untitled%20Diagram.png)
