@@ -7,10 +7,10 @@ var Schema = mongoose.Schema;
 
 var RecordSchema = new Schema(
     {
-        date: {type: Date, default: Date.now},
-        _sensorId: {type: Schema.Types.ObjectId, required: true},        
+        date: {type: Date, default: Date.now},        
         temperature: {type: Number, required: true},
-        humidity: {type: Number, required: true}
+        humidity: {type: Number, required: true},
+        _sensorId: {type: Schema.Types.ObjectId, required: true}
     }
 );
 

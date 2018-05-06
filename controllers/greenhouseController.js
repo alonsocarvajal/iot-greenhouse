@@ -1,14 +1,75 @@
 /*
 
-{"name": "casa1","_sensorId": "5a32dc4d734d1d293237ef2f","location": "[2,2]","type": "madera"}
+{'name': 'casa1','_sensorId': '5a32dc4d734d1d293237ef2f','location': '[2,2]','type': 'madera'}
 
 */
 
 var Greenhouse = require('../models/greenhouse');
+var Record = require('../models/record');
 
 // Index
 exports.index = function(req, res) {
-    res.send('NOT IMPLEMENTED: Site Home Page');
+    const chartOptions = {
+        title : {
+            text: 'Temperatura y Humedad',
+            subtext: 'Actualización cada 12 segundos'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['Tº']
+        },
+        toolbox: {
+            show : false
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                data : ['cat1','cat2','cat3','cat4']
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'#responses',
+                type:'line',
+                data:[2.0, 4.9, 7.0, 23.2],
+                markPoint : {
+                    data : [
+                        {type : 'max', name: 'Valor máximo'},
+                        {type : 'min', name: 'Valor mínimo'}
+                    ]
+                }//,
+                //markLine : {
+                //    data : [
+                //       {type: 'average', name: 'average'}
+                //    ]
+                //}
+            }
+        ]
+    }// end charOptions
+        
+        //const categories = ['cat 1', ... , 'cat n'];
+        
+        //chartOptions.xAxis[0].data = categories;
+
+    Record.find({})
+    .exec( (err, records) => {
+        if (err) { return next(err); }
+        const dates = records.map( record => record.dat );
+        const temperatures = records.map( record => record.temperature );
+        let lastTemperature = temperatures[temperatures.length - 1];
+        chartOptions.xAxis[0].data = dates;
+        chartOptions.series[0].data = temperatures;
+        res.render( 'index', {title: 'Dashboard', data: JSON.stringify(chartOptions), lastTemperature: lastTemperature} );
+    });
+    
 };
 
 // Display all greenhouses

@@ -3,3 +3,13 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  h2 Último valor leído #{lastTemperature}
+
+  #chart(style="width: 600px; height: 400px;")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.min.js")
+  script.
+    var chartoptions = !{data}
+
+    var chart = echarts.init(document.getElementById('chart'));
+    chart.setOption(chartoptions);
