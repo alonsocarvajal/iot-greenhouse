@@ -9,7 +9,7 @@ var MicroController = require('../models/microcontroller');
 // Display all microcontrollers
 exports.microcontroller_list = function(req, res, next) {
     MicroController.find({})
-    .populate('microcontroller')
+    //.populate('microcontroller')
     .exec(function (err, list_microcontrollers) {
         if (err) { return next(err); }
         // Successful
