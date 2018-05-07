@@ -4,57 +4,14 @@
 
 */
 
-var Greenhouse = require('../models/greenhouse');
-var Record = require('../models/record');
+const Greenhouse = require('../models/greenhouse');
+const Record = require('../models/record');
+const ChartOption = require('../helpers/graph_config.json');
 
 // Index
 exports.index = function(req, res) {
-    const chartOptions = {
-        title : {
-            text: 'Temperatura y Humedad',
-            subtext: 'Actualización cada 12 segundos'
-        },
-        tooltip : {
-            trigger: 'axis'
-        },
-        legend: {
-            data:['Tº']
-        },
-        toolbox: {
-            show : false
-        },
-        calculable : true,
-        xAxis : [
-            {
-                type : 'category',
-                data : ['cat1','cat2','cat3','cat4']
-            }
-        ],
-        yAxis : [
-            {
-                type : 'value'
-            }
-        ],
-        series : [
-            {
-                name:'#responses',
-                type:'line',
-                data:[2.0, 4.9, 7.0, 23.2],
-                markPoint : {
-                    data : [
-                        {type : 'max', name: 'Valor máximo'},
-                        {type : 'min', name: 'Valor mínimo'}
-                    ]
-                }//,
-                //markLine : {
-                //    data : [
-                //       {type: 'average', name: 'average'}
-                //    ]
-                //}
-            }
-        ]
-    }// end charOptions
-
+    const chartOptions = ChartOption;
+    
     Record.find({})
     .exec( (err, records) => {
         if (err) { return next(err); }
