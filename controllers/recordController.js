@@ -20,9 +20,9 @@ exports.record_list = function(req, res, next) {
 // Handle a create record on POST
 exports.record_create_post = function(req, res, next) {
     // Check fields
+    console.log(req.body);
     req.checkBody('_sensorId', 'Sensor ID required').notEmpty();
-    req.checkBody('temperature', 'Temperature required').notEmpty();
-    req.checkBody('humidity', 'Humidity required').notEmpty();
+    req.checkBody('data', 'Data required').notEmpty();
 
     // Run validators
     var errors =  req.validationErrors();
@@ -31,8 +31,7 @@ exports.record_create_post = function(req, res, next) {
     var record = new Record(
         {
             _sensorId: req.body._sensorId,
-            temperature: req.body.temperature,
-            humidity: req.body.humidity
+            data: req.body.data
         }
     );
 

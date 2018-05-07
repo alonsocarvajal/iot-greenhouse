@@ -73,7 +73,7 @@ exports.index = function(req, res) {
 // Display all greenhouses
 exports.greenhouse_list = function(req, res, next) {
     Greenhouse.find({})
-    .populate('sensor')
+    .populate('microController')
     .exec(function (err, list_greenhouses) {
         if (err) { return next(err); }
         // Successful
@@ -84,11 +84,11 @@ exports.greenhouse_list = function(req, res, next) {
 // Handle a create greenhouse on POST
 exports.greenhouse_create_post = function(req, res, next) {
     // Check fields
-    console.log(req.body.name);
+    console.log(req.body);
     req.checkBody('name', 'Name required').notEmpty();
-    req.checkBody('_sensorId', 'Sensor required').notEmpty();    
+    req.checkBody('description', 'Description required').notEmpty();
     req.checkBody('location', 'Location required').notEmpty();
-    req.checkBody('type', 'Type required').notEmpty();
+
     //req.checkBody('image', 'Image required').notEmpty();
 
     // Run validators
@@ -98,9 +98,8 @@ exports.greenhouse_create_post = function(req, res, next) {
     var greenhouse = new Greenhouse(
         {
             name: req.body.name,
-            _sensorId: req.body._sensorId,
             location: req.body.location,
-            type: req.body.type,
+            description: req.body.description,
             image: req.body.image
         }
     );
@@ -129,11 +128,11 @@ exports.greenhouse_create_post = function(req, res, next) {
 };
 
 // Handle a delete greenhouse on POST
-exports.greenhouse_delete_post = function(req, res) {
+exports.greenhouse_delete_post = (req, res) => {
     req.checkBody('id', 'Greenhouse ID is required').notEmpty();
     
     Greenhouse.findById(req.body.id)
-        .exec(function (err, results) {
+        .exec( (err, results) => {
             if (err) { return next(err); }
             if (results.length < 1) {
                 res.json( {'status': 'Greenhouse ID does not exists'} )

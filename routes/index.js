@@ -15,6 +15,7 @@ var router = express.Router();
 
 // Require controllers modules
 var greenhouse_controller = require('../controllers/greenhouseController');
+var micro_controller = require('../controllers/microController');
 var sensor_controller = require('../controllers/sensorController');
 var record_controller = require('../controllers/recordController');
 
@@ -26,6 +27,11 @@ router.post('/greenhouse/create', greenhouse_controller.greenhouse_create_post);
 router.post('/greenhouse/:id/delete', greenhouse_controller.greenhouse_delete_post);
 router.post('/greenhouse/:id/update', greenhouse_controller.greenhouse_update_post);
 
+/// MICROCONTROLLER ROUTES///
+router.get('/microcontrollers', micro_controller.microcontroller_list);
+router.post('/microcontroller/create', micro_controller.microcontroller_create_post);
+router.post('/microcontroller/:id/delete', micro_controller.microcontroller_delete_post);
+router.post('/microcontroller/:id/update', micro_controller.microcontroller_update_post);
 /// SENSOR ROUTES ///
 
 router.get('/sensors', sensor_controller.sensor_list);

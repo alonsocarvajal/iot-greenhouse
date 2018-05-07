@@ -23,7 +23,8 @@ exports.sensor_create_post = function(req, res) {
     var sensor = new Sensor(
         {
             model: req.body.model,
-            description: req.body.description
+            description: req.body.description,
+            _microControllerId: req.body._microControllerId
         }
     );
 

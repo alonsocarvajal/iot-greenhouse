@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var SensorSchema = new Schema(
     {
         model: {type: String, required: true},
-        description: {type: String}
+        description: {type: String},
+        _microControllerId: Schema.Types.ObjectId
     }
 );
 

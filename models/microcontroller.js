@@ -1,12 +1,15 @@
-import { version } from 'moment';
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var mogoose = require('mongoose');
-
-var Schema = new Schema(
+var MicroControllerSchema = new Schema(
     {
         model: {type: String, required: true},
+        mac: String,
         version: {type: String, required: true},
         description: String,
-        _greehouseId: {type: Schema.Types.ObjectId, required: true},
+        _greenhouseId: {type: Schema.Types.ObjectId, required: true}
     }
 );
+
+// Export model
+module.exports = mongoose.model('MicroController', MicroControllerSchema);
