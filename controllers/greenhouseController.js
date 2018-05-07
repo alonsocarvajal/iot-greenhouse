@@ -12,17 +12,23 @@ const ChartOption = require('../helpers/graph_config.json');
 exports.index = function(req, res) {
     const chartOptions = ChartOption;
     
-    Record.find({})
+    Record.find({}).sort({'date': -1})
     .exec( (err, records) => {
         if (err) { return next(err); }
+        
         const dates = records.map(record => record.date);
-        const temperatures = records.map(record => record.temperature).sort( (a,b) => b - a );
-        console.log(temperatures);
-        const humidities = records.map(record => record.humidity)
-        let lastTemperature = temperatures[temperatures.length - 1];
+        const temperatures = records.map(record => record.data[0]);
+        console.log(dates);
+        const humidities = records.map(record => record.data[1])
+        let lastData = {
+                date: dates[0],
+                temperature: temperatures[0],
+                humidity: humidities[0]
+        }
+        console.log(chartOptions);
         chartOptions.xAxis[0].data = dates;
         chartOptions.series[0].data = temperatures;
-        res.render( 'index', {title: 'Dashboard', data: JSON.stringify(chartOptions), lastTemperature: lastTemperature} );
+        res.render( 'index', {title: 'Dashboard', data: JSON.stringify(chartOptions), lastData: lastData} );
     });
     
 };

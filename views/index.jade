@@ -4,7 +4,11 @@ block content
   h1= title
   p Welcome to #{title}
 
-  h2 Último valor leído #{lastTemperature}
+  h2 Último valor leídos:
+  ul
+    li #{lastData.date}
+    li #{lastData.temperature} ºC
+    li #{lastData.humidity} %
 
   #chart(style="width: 600px; height: 400px;")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.min.js")
